@@ -6,7 +6,9 @@ export default function layout(props) {
   return (
     <div>
           <MainNavigation />
+          <main>
        <Outlet />
+      </main>
       
     </div>
   )

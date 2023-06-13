@@ -4,6 +4,8 @@ import {createBrowserRouter, RouterProvider, createRoutesFromElements, Route, Li
 import Home from './pages/home';
 import About from './pages/about';
 import Layout from './pages/layout';
+import Error from './pages/error';
+import ProductDetail from './pages/productDetail';
 
 // const router = createBrowserRouter([
 //  {
@@ -22,6 +24,8 @@ const routeDefinitions = createRoutesFromElements(
   <Route path="/" element={<Layout />}>
     <Route index element={<Home />} />
     <Route path="/about" element={<About />} />
+     <Route path="*" element={<Error />} />
+      <Route path="/product/:id" element={<ProductDetail />} />
   </Route>
 );
 
