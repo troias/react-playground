@@ -1,11 +1,11 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { useNavigate, Link } from "react-router-dom";
 
-export default function Home() {
+const Home = () => {
   const navigate = useNavigate();
 
   const navigateToAbout = () => {
-    navigate('/about');
+    navigate("/about");
   };
 
   const navigateToProductDetail = (id) => {
@@ -13,8 +13,8 @@ export default function Home() {
   };
 
   return (
-    <div className="">
-      <h1>Home</h1>
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold mb-4">Home</h1>
       <button
         onClick={navigateToAbout}
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -23,18 +23,26 @@ export default function Home() {
       </button>
 
       {/* List of products with links */}
-      <ul className="list-disc ml-4 text-blue-500">
+      <ul className="list-disc ml-4 mt-4 text-blue-500">
         <li>
-          <a onClick={() => navigateToProductDetail(1)} href="/product/1">
+          <Link
+            onClick={() => navigateToProductDetail(1)}
+            className="hover:text-blue-700"
+          >
             Product 1
-          </a>
+          </Link>
         </li>
         <li>
-          <a onClick={() => navigateToProductDetail(2)} href="/product/2">
+          <Link
+            onClick={() => navigateToProductDetail(2)}
+            className="hover:text-blue-700"
+          >
             Product 2
-          </a>
+          </Link>
         </li>
       </ul>
     </div>
   );
-}
+};
+
+export default Home;

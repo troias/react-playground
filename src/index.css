@@ -18,3 +18,8 @@ code {
 .list-disc {
   @apply  ml-4 text-blue-500;
 }
+
+
+.main-container {
+  @apply container mx-auto px-4 py-8;
+}

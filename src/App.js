@@ -24,8 +24,8 @@ const routeDefinitions = createRoutesFromElements(
   <Route path="/" element={<Layout />}>
     <Route index element={<Home />} />
     <Route path="/about" element={<About />} />
-     <Route path="*" element={<Error />} />
       <Route path="/product/:id" element={<ProductDetail />} />
+     <Route path="*" element={<Error />} />
   </Route>
 );
 
