@@ -40,6 +40,15 @@ const routeDefinitions = createRoutesFromElements(
         const data = await eventList();
         console.log("data", data);
 
+        // const res = new Response(
+        //   JSON.stringify({
+        //     data,
+        //   }),
+        //   {
+        //     status: 200,
+        //   }
+        // );
+
         // data to json
 
         // Loader logic for the Events route
