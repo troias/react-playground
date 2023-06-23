@@ -5,8 +5,10 @@ import {
   RouterProvider,
   createRoutesFromElements,
   Route,
+  json,
   Link,
 } from "react-router-dom";
+import { Suspense } from "react";
 import Home from "./pages/home";
 import About from "./pages/about";
 import Layout from "./pages/layout";
@@ -14,6 +16,8 @@ import Error from "./pages/error";
 import ProductDetail from "./pages/productDetail";
 import Events from "./pages/events";
 import { eventList } from "./components/fakeApi/eventList";
+import EventDetail from "./pages/eventDetail";
+import EditItem from "./components/editItem";
 
 // const router = createBrowserRouter([
 //  {
@@ -35,28 +39,73 @@ const routeDefinitions = createRoutesFromElements(
     <Route path="/product/:id" element={<ProductDetail />} />
     <Route
       path="/events"
-      element={<Events />}
+      element={
+        <Suspense fallback={<Error />}>
+          <Events />
+        </Suspense>
+      }
       loader={async () => {
-        const data = await eventList();
-        console.log("data", data);
+        try {
+          const data = await eventList();
+          console.log("data", data);
 
-        // const res = new Response(
-        //   JSON.stringify({
-        //     data,
-        //   }),
-        //   {
-        //     status: 200,
-        //   }
-        // );
+          if (!data) {
+            throw json({ message: "Error" }, { status: 500 });
+          }
 
-        // data to json
+          return json(data, { status: 200 });
+        } catch (error) {
+          throw error;
+        }
+      }}
+    />
+    <Route
+      path="/events/:id"
+      element={<EventDetail />}
+      loader={async ({ params }) => {
+        try {
+          const data = await eventList();
 
-        // Loader logic for the Events route
-        // Perform any asynchronous operations here
-        // For example, fetching data from an API
-        // const response = await fetch("/api/events");
-        // const data = await response.json();
-        return data;
+          if (!data) {
+            throw json({ message: "Error" }, { status: 500 });
+          }
+
+          const event = data.find((event) => event.id === parseInt(params.id));
+
+          if (!event) {
+            throw json({ message: "Event not found" }, { status: 404 });
+          }
+
+          console.log("EventDetail data", event);
+          return json(event, { status: 200 });
+        } catch (error) {
+          throw error;
+        }
+      }}
+    />
+    <Route
+      path="/events/edit/:id"
+      id="edit"
+      element={<EditItem />}
+      loader={async ({ params }) => {
+        try {
+          const data = await eventList();
+
+          if (!data) {
+            throw json({ message: "Error" }, { status: 500 });
+          }
+
+          const event = data.find((event) => event.id === parseInt(params.id));
+
+          if (!event) {
+            throw json({ message: "Event not found" }, { status: 404 });
+          }
+
+          console.log("EventDetail data", event);
+          return json(event, { status: 200 });
+        } catch (error) {
+          throw error;
+        }
       }}
     />
     <Route path="*" element={<Error />} />

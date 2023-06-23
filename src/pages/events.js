@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLoaderData, useNavigation } from "react-router-dom";
+import { useLoaderData, useNavigation, Link } from "react-router-dom";
 
 export default function Events() {
   const data = useLoaderData();
@@ -11,18 +11,17 @@ export default function Events() {
   //Loading spinnder
 
   // {navigation.state === "loading" && <Loading />}
-
   return (
     <div>
       <h1>Events</h1>
       <ul>
         {navigation.state === "loading" && <Loading />}
         {data.map((event) => (
-          <li key={event.id}>
+          <Link key={event.id} to={`/events/${event.id}`}>
             <h2>{event.title}</h2>
             <p>{event.description}</p>
             <p>{event.year}</p>
-          </li>
+          </Link>
         ))}
       </ul>
     </div>
