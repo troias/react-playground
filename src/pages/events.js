@@ -24,6 +24,8 @@ export default function Events() {
           </Link>
         ))}
       </ul>
+
+      <Link to="/events/new">New Event</Link>
     </div>
   );
 }

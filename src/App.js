@@ -7,6 +7,7 @@ import {
   Route,
   json,
   Link,
+  redirect,
 } from "react-router-dom";
 import { Suspense } from "react";
 import Home from "./pages/home";
@@ -18,6 +19,7 @@ import Events from "./pages/events";
 import { eventList } from "./components/fakeApi/eventList";
 import EventDetail from "./pages/eventDetail";
 import EditItem from "./components/editItem";
+import NewEvent from "./components/newEvent";
 
 // const router = createBrowserRouter([
 //  {
@@ -85,8 +87,8 @@ const routeDefinitions = createRoutesFromElements(
     />
     <Route
       path="/events/edit/:id"
-      id="edit"
       element={<EditItem />}
+      id="edit"
       loader={async ({ params }) => {
         try {
           const data = await eventList();
@@ -106,6 +108,21 @@ const routeDefinitions = createRoutesFromElements(
         } catch (error) {
           throw error;
         }
+      }}
+    />
+    <Route
+      path="/events/new"
+      element={<NewEvent />}
+      action={async ({ request }) => {
+        const body = await request.formData().then((formData) => {
+          const data = {};
+          formData.forEach((value, key) => {
+            data[key] = value;
+          });
+          return redirect("/events");
+        });
+        console.log("body", body);
+        return json({ message: "Event created" }, { status: 201 });
       }}
     />
     <Route path="*" element={<Error />} />

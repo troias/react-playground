@@ -1,17 +1,17 @@
-import React from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import React from "react";
+import { NavLink, useLocation } from "react-router-dom";
 
 export default function MainNavigation() {
-   const location = useLocation();
+  const location = useLocation();
 
-console.log("useLocation()", location);
+  console.log("useLocation()", location);
 
-//   const isActive = (match, location) => {
-//     if (!match) {
-//       return false;
-//     }
-//     return match.url === location.pathname;
-//   };
+  //   const isActive = (match, location) => {
+  //     if (!match) {
+  //       return false;
+  //     }
+  //     return match.url === location.pathname;
+  //   };
 
   return (
     <React.Fragment>
@@ -51,7 +51,9 @@ console.log("useLocation()", location);
             to="/"
             end
             className={({ isActive }) =>
-              isActive ? 'px-3 py-2 rounded-md text-sm font-medium leading-5 text-white bg-gray-900' : 'mt-3 px-3 py-2 rounded-md text-sm font-medium leading-5 text-gray-300 hover:text-white hover:bg-gray-700'
+              isActive
+                ? "px-3 py-2 rounded-md text-sm font-medium leading-5 text-white bg-gray-900"
+                : "mt-3 px-3 py-2 rounded-md text-sm font-medium leading-5 text-gray-300 hover:text-white hover:bg-gray-700"
             }
           >
             Dashboard
@@ -60,10 +62,23 @@ console.log("useLocation()", location);
             to="/about"
             end
             className={({ isActive }) =>
-              isActive ? 'px-3 py-2 rounded-md text-sm font-medium leading-5 text-white bg-gray-900' : 'mt-3 px-3 py-2 rounded-md text-sm font-medium leading-5 text-gray-300 hover:text-white hover:bg-gray-700'
+              isActive
+                ? "px-3 py-2 rounded-md text-sm font-medium leading-5 text-white bg-gray-900"
+                : "mt-3 px-3 py-2 rounded-md text-sm font-medium leading-5 text-gray-300 hover:text-white hover:bg-gray-700"
             }
           >
             About
+          </NavLink>
+          <NavLink
+            to="/events"
+            end
+            className={({ isActive }) =>
+              isActive
+                ? "px-3 py-2 rounded-md text-sm font-medium leading-5 text-white bg-gray-900"
+                : "mt-3 px-3 py-2 rounded-md text-sm font-medium leading-5 text-gray-300 hover:text-white hover:bg-gray-700"
+            }
+          >
+            Events
           </NavLink>
         </div>
       </header>
